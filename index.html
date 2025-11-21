@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Martin Zatt | Muebles Tapizados a Medida</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-theme="dark">
+    <header class="site-header">
+      <div class="brand">
+        <img
+          src="/img/logo.png"
+          alt="Logo Martín Zatt Muebles"
+          class="brand-logo"
+        />
+
+        <div class="brand-text">
+          <span class="brand-name">Martin Zatt</span>
+          <span class="brand-tagline">Muebles tapizados a medida</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-button" aria-label="Cambiar tema">
+          🌙
+        </button>
+
+        <button id="cart-toggle" class="icon-button cart-button">
+          🛒
+          <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Muebles tapizados a medida</h1>
+          <p>
+            Camas, sillones, respaldos y sillas diseñados especialmente para tu
+            espacio. Trabajo artesanal, materiales de calidad y terminaciones
+            profesionales.
+          </p>
+          <div class="hero-actions">
+            <button id="hero-whatsapp" class="btn-primary">
+              Pedir presupuesto por WhatsApp
+            </button>
+            <button id="hero-see-products" class="btn-ghost">
+              Ver catálogo
+            </button>
+          </div>
+          <p class="hero-mini">
+            Fabricación sobre pedido · Envíos a coordinar · Atención
+            personalizada
+          </p>
+        </div>
+
+        <div class="hero-image">
+          <!-- Reemplazá la imagen por una foto de cama/sillón de Martín -->
+          <img src="/img/Portada.png" alt="Sillon a medida de Martin Zatt" />
+        </div>
+      </section>
+
+      <!-- PRODUCTOS -->
+      <section id="productos" class="section">
+        <h2>Catálogo destacado</h2>
+        <p class="section-subtitle">
+          Algunos de los trabajos tapizados que podés encargar a medida.
+        </p>
+
+        <div class="product-grid">
+          <!-- CARD 1 -->
+          <article
+            class="product-card"
+            data-id="cama-redonda-imperial"
+            data-name="Cama Redonda Imperial Velvet Black Edition"
+            data-price="800000"
+          >
+            <img
+              src="img/producto24.png"
+              alt="Cama Redonda Imperial Velvet Black Edition"
+              class="product-image"
+            />
+            <h3>Cama Redonda Imperial Velvet – Black Edition</h3>
+            <p class="product-desc">
+              Diseño circular tapizado en pana premium, con respaldo capitoné
+              alto y bordes acolchados. Elegante, sofisticada y con estructura
+              reforzada para máxima durabilidad. Ideal para dormitorios modernos
+              que buscan un toque de lujo.
+            </p>
+            <p class="product-price">$800.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+
+          <!-- CARD 2 -->
+          <article
+            class="product-card"
+            data-id="sillon-beige"
+            data-name="Sillon tres cuerpos"
+            data-price="350000"
+          >
+            <img
+              src="img/producto37.png"
+              alt="Sillón tres cuerpos"
+              class="product-image"
+            />
+            <h3>Sillón Verona – 3 Cuerpos</h3>
+            <p class="product-desc">
+              Sillón de líneas suaves y tapizado aterciopelado. Súper cómodo,
+              con apoyabrazos redondeados y detalles de tachas decorativas.
+            </p>
+            <p class="product-price">$350.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+
+          <!-- CARD 3 -->
+          <article
+            class="product-card"
+            data-id="sillon-poltronas"
+            data-name="Combo sillón + poltronas"
+            data-price="530000"
+          >
+            <img
+              src="img/producto15.png"
+              alt="Sillón tres cuerpos + dos poltronas"
+              class="product-image"
+            />
+            <h3>Sillón tres cuerpos + dos poltronas</h3>
+            <p class="product-desc">
+              Conjunto completo que incluye un sillón tres cuerpos y dos
+              poltronas individuales. *De regalo*, un camastro combinado. Ideal
+              para living amplios que buscan comodidad, armonía y estilo.
+            </p>
+            <p class="product-price">$530.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+
+          <!-- CARD 4 -->
+          <article
+            class="product-card"
+            data-id="cama-osito"
+            data-name="Cama Osito"
+            data-price="450000"
+          >
+            <img
+              src="img/producto30.png"
+              alt="Cama Osito"
+              class="product-image"
+            />
+            <h3>Cama Osito</h3>
+            <p class="product-desc">
+              Cama infantil súper reforzada con cabezal en forma de osito y base
+              con contenedor. Ideal para sumar diseño, orden y comodidad al
+              dormitorio de los más chicos.
+            </p>
+            <p class="product-price">$450.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!-- CARD 5 -->
+          <article
+            class="product-card hidden-product"
+            data-id="respaldo-capitone-blanco"
+            data-name="Respaldo capitoné blanco"
+            data-price="100000"
+          >
+            <img
+              src="img/producto40.png"
+              alt="Respaldo capitoné blanco"
+              class="product-image"
+            />
+            <h3>Respaldo King Size Capitoné</h3>
+            <p class="product-desc">
+              Respaldo alto tapizado con capitoné clásico, elegante y acolchado.
+              Diseñado para camas king size, aporta presencia y confort a
+              cualquier dormitorio.
+            </p>
+            <p class="product-price">$100.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!-- CARD 6 -->
+          <article
+            class="product-card hidden-product"
+            data-id="banqueta-corazon"
+            data-name="Banqueta corazón"
+            data-price="130000"
+          >
+            <img
+              src="img/producto28.png"
+              alt="Banqueta corazón"
+              class="product-image"
+            />
+            <h3>Banqueta Corazón</h3>
+            <p class="product-desc">
+              Banqueta tapizada en forma de corazón, ideal para dormitorios
+              juveniles o espacios que buscan un toque divertido y original.
+              Cómoda y resistente, perfecta para sumar estilo.
+            </p>
+            <p class="product-price">$130.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!-- CARD 7-->
+          <article
+            class="product-card hidden-product"
+            data-id="silla-comedor-premium"
+            data-name="Silla de comedor premium"
+            data-price="78000"
+          >
+            <img
+              src="img/producto17.png"
+              alt="Silla de comedor premium"
+              class="product-image"
+            />
+            <h3>Silla de comedor premium</h3>
+            <p class="product-desc">
+              Silla de comedor con asiento y respaldo tapizados en tela
+              resistente. Estructura de madera sólida y diseño ergonómico para
+              mayor comodidad durante las comidas.
+            </p>
+            <p class="product-price">$78.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!-- CARD 8-->
+          <article
+            class="product-card hidden-product"
+            data-id="poltronas-capri"
+            data-name="Poltronas Capri"
+            data-price="65000"
+          >
+            <img
+              src="img/producto6.png"
+              alt="Poltronas Capri"
+              class="product-image"
+            />
+            <h3>Poltrona Capri</h3>
+            <p class="product-desc">
+              Poltrona capitoné con apoyabrazos rectos, estructura reforzada y
+              tapizado premium. Ideal para living, comedor o recepción.
+            </p>
+            <p class="product-price">$65.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!-- CARD 9-->
+          <article
+            class="product-card hidden-product"
+            data-id="combo-mostrador-banqueta"
+            data-name="Combo mostrador + banqueta"
+            data-price="400000"
+          >
+            <img
+              src="img/producto29.png"
+              alt="Combo mostrador + banqueta"
+              class="product-image"
+            />
+            <h3>Combo Mostrador Premium + Banquetas Velvet</h3>
+            <p class="product-desc">
+              Mostrador capitoné tapizado en ecocuero + dos banquetas velvet con
+              patas macizas. Ideal para locales, recepciones o rincones deco con
+              estilo.
+            </p>
+            <p class="product-price">$400.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!--CARD 10-->
+          <article
+            class="product-card hidden-product"
+            data-id="cama-elegance-panel-gris"
+            data-name="Cama elegance panel gris"
+            data-price="380000"
+          >
+            <img
+              src="img/producto31.png"
+              alt="Cama Elegance Panel Gris"
+              class="product-image"
+            />
+            <h3>Cama Elegance Panel Gris</h3>
+            <p class="product-desc">
+              Base dividida reforzada con respaldo tapizado estilo canelón.
+              Diseño moderno, firme y elegante en formato dos plazas y media,
+              ideal para descanso amplio y cómodo.
+            </p>
+            <p class="product-price">$380.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!--CARD 11-->
+          <article
+            class="product-card hidden-product"
+            data-id="sillon-relax-azul"
+            data-name="Sillón relax azul"
+            data-price="230000"
+          >
+            <img
+              src="img/producto3.png"
+              alt="Sillón relax azul"
+              class="product-image"
+            />
+            <h3>Sillón Londres con Puff</h3>
+            <p class="product-desc">
+              Sillón tapizado en pana soft, estructura reforzada y puff
+              multifunción. Diseño minimalista y moderno, ideal para livings y
+              espacios reducidos.
+            </p>
+            <p class="product-price">$230.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+          <!--CARD 12-->
+          <article
+            class="product-card hidden-product"
+            data-id="respaldo-capitone-turquesa"
+            data-name="Respaldo capitoné turquesa"
+            data-price="75000"
+          >
+            <img
+              src="img/producto2.png"
+              alt="Respaldo capitoné turquesa"
+              class="product-image"
+            />
+            <h3>Respaldo Queen Size Capitoné Turquesa</h3>
+            <p class="product-desc">
+              Respaldo alto tapizado con capitoné clásico en tono turquesa, elegante
+              y acolchado. Diseñado para camas queen size, aporta presencia y
+              confort a cualquier dormitorio.
+            </p>
+            <p class="product-price">$75.000</p>
+            <button class="btn-secondary add-to-cart">
+              Agregar al carrito
+            </button>
+          </article>
+        </div>
+        <button id="load-more">Ver más productos</button>
+      </section>
+
+      <!-- BENEFICIOS -->
+      <section class="section">
+        <h2>¿Por qué elegir a Martin?</h2>
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <h3>Trabajo artesanal</h3>
+            <p>Cada pieza se fabrica a mano, con atención al detalle.</p>
+          </article>
+          <article class="benefit-card">
+            <h3>Materiales de calidad</h3>
+            <p>
+              Estructuras reforzadas, telas resistentes y espumas de alta
+              densidad.
+            </p>
+          </article>
+          <article class="benefit-card">
+            <h3>Medidas a medida</h3>
+            <p>Adaptamos el diseño a tu ambiente y tus necesidades.</p>
+          </article>
+          <article class="benefit-card">
+            <h3>Atención personalizada</h3>
+            <p>Contactás directo con el tapicero, sin intermediarios.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section about">
+        <div class="about-photo">
+          <img src="/img/Tincho.png" alt="Martin Zatt" class="about-image" />
+        </div>
+        <div class="about-text">
+          <h2>Sobre Mi</h2>
+          <p>
+            Martin es un joven emprendedor apasionado por el diseño y la
+            fabricación de muebles tapizados. Cada pieza que realiza combina
+            técnica, estética y comodidad, cuidando cada detalle desde la
+            estructura hasta la terminación.
+          </p>
+          <p>
+            Trabaja por encargo, adaptándose al estilo, medidas y necesidades de
+            cada cliente. Fabricación artesanal, materiales duraderos y una
+            atención personalizada que te acompaña desde la idea hasta la
+            entrega final.
+          </p>
+
+          <button class="btn-primary" id="about-whatsapp">
+            Enviar idea por WhatsApp
+          </button>
+        </div>
+      </section>
+
+      <!-- CTA FINAL -->
+      <section class="section final-cta">
+        <h2>¿Listo para renovar tus muebles?</h2>
+        <p>
+          Armá tu carrito, revisá los detalles y enviale tu pedido completo a
+          Martín por WhatsApp.
+        </p>
+        <button class="btn-primary" id="final-whatsapp">
+          Enviar pedido ahora
+        </button>
+      </section>
+    </main>
+
+    <!-- CARRITO SLIDE PANEL -->
+    <aside id="cart-panel" class="cart-panel">
+      <div class="cart-header">
+        <h2>Tu carrito</h2>
+        <button id="cart-close" class="icon-button" aria-label="Cerrar carrito">
+          ✕
+        </button>
+      </div>
+      <div id="cart-empty" class="cart-empty">
+        Tu carrito está vacío. Agregá algún producto para empezar.
+      </div>
+      <ul id="cart-items" class="cart-items"></ul>
+
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Total:</span>
+          <span id="cart-total">$0</span>
+        </div>
+        <button id="cart-send-whatsapp" class="btn-primary" disabled>
+          Enviar pedido por WhatsApp
+        </button>
+        <button id="cart-clear" class="btn-ghost">Vaciar carrito</button>
+      </div>
+    </aside>
+
+    <!-- OVERLAY DEL CARRITO -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <button
+      id="floating-whatsapp"
+      class="floating-whatsapp"
+      aria-label="WhatsApp directo"
+    >
+      💬
+    </button>
+
+    <footer class="site-footer">
+      <p>© 2025 Martín Zatt · Muebles tapizados a medida</p>
+      <p>Pedidos y consultas por WhatsApp</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
