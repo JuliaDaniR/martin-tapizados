@@ -312,6 +312,9 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  justify-content: space-between;
 }
 
 .product-image {
@@ -319,6 +322,27 @@ ul {
   height: 190px;
   width: 100%;
   object-fit: cover;
+  transition: transform 1.3s ease;
+}
+
+.product-card .product-image:hover {
+  transform: scale(1.1);
+  cursor: zoom-in;
+  height: auto;
+}
+
+/* Zoom en celulares */
+.zoom-mobile {
+  transform: scale(1.1);
+  z-index: 20;
+  position: relative;
+  height: auto;
+}
+
+@media (hover: none) {
+  .product-card .product-image:hover {
+    transform: none;
+  }
 }
 
 .product-card h3 {
@@ -336,37 +360,14 @@ ul {
   margin: 0.35rem 0;
   font-weight: 600;
 }
-.product-card {
-  position: relative;
-  overflow: hidden;
-  justify-content: space-between;
-}
-
-.product-card .product-image {
-  transition: transform 1.3s ease;
-}
-
-.product-card .product-image:hover {
-  transform: scale(1.1); /* ajustá según necesites */
-  cursor: zoom-in;
-  height: auto;
-}
-/* Zoom en celulares */
-.zoom-mobile {
-  transform: scale(1.1); /* ajustá el nivel */
-  z-index: 20;
-  position: relative;
-  height: auto;
-}
-@media (hover: none) {
-  .product-card .product-image:hover {
-    transform: none;
-  }
-}
 
 .hidden-product {
   display: none;
 }
+
+/* ===========================
+   BOTÓN "LOAD MORE"
+   =========================== */
 
 #load-more {
   margin: 2rem auto;
@@ -393,6 +394,43 @@ ul {
 #load-more:active {
   transform: translateY(0);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ===========================
+   MINIATURAS DE PRODUCTO
+   =========================== */
+
+.product-images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.product-thumbs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.product-thumbs img.thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.25s ease-in-out;
+  box-shadow: var(--shadow-soft);
+}
+
+.product-thumbs img.thumb:hover {
+  transform: scale(1.05);
+}
+
+.product-thumbs img.active {
+  border-color: #d4b35f; /* dorado suave */
 }
 
 /* ===========================

@@ -335,3 +335,16 @@ document.querySelectorAll('.product-image').forEach(img => {
       }
     });
   });
+
+  document.querySelectorAll('.product-card').forEach(card => {
+  const mainImg = card.querySelector('.main-img');
+  const thumbs = card.querySelectorAll('.thumb');
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      mainImg.src = thumb.src;
+      thumbs.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+});
