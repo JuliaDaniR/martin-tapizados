@@ -8,28 +8,144 @@
   </head>
   <body data-theme="dark">
     <header class="site-header">
-      <div class="brand">
-        <img
-          src="img/logo.png"
-          alt="Logo Martín Zatt Muebles"
-          class="brand-logo"
-        />
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div class="brand">
+          <img src="img/logo.png" alt="Logo Martín Zatt" class="brand-logo" />
+          <div class="brand-text">
+            <span class="brand-name">Martin Zatt</span>
+            <span class="brand-tagline">Muebles tapizados a medida</span>
+          </div>
+        </div>
 
-        <div class="brand-text">
-          <span class="brand-name">Martin Zatt</span>
-          <span class="brand-tagline">Muebles tapizados a medida</span>
+        <div class="header-actions">
+          <button
+            id="theme-toggle"
+            class="icon-button"
+            aria-label="Cambiar tema"
+          >
+            🌙
+          </button>
+          <button id="cart-toggle" class="icon-button cart-button">
+            🛒 <span id="cart-count" class="cart-count">0</span>
+          </button>
         </div>
       </div>
 
-      <div class="header-actions">
-        <button id="theme-toggle" class="icon-button" aria-label="Cambiar tema">
-          🌙
-        </button>
+      <!-- NAVBAR DESKTOP -->
+      <nav class="mega-nav">
+        <ul class="mega-menu">
+          <li class="mega-item">
+            <a href="#">Camas & Respaldos</a>
+            <div class="mega-dropdown">
+              <a data-filter="camas">Camas</a>
+              <a data-filter="respaldo">Respaldos</a>
+              <a data-filter="tapizados">Tapizados</a>
+            </div>
+          </li>
 
-        <button id="cart-toggle" class="icon-button cart-button">
-          🛒
-          <span id="cart-count" class="cart-count">0</span>
-        </button>
+          <li class="mega-item">
+            <a href="#">Sillas & Sillones</a>
+            <div class="mega-dropdown">
+              <a data-filter="sillas">Sillas</a>
+              <a data-filter="sillones">Sillones</a>
+              <a data-filter="poltronas">Poltronas</a>
+            </div>
+          </li>
+
+          <li class="mega-item">
+            <a href="#">Banquetas & Puff</a>
+            <div class="mega-dropdown">
+              <a data-filter="banquetas">Banquetas</a>
+              <a data-filter="puff">Puff</a>
+            </div>
+          </li>
+
+          <li class="mega-item">
+            <a href="#">Lashista & Spa</a>
+            <div class="mega-dropdown">
+              <a data-filter="lashista">Sillones Lashista</a>
+              <a data-filter="mostradores">Mostradores</a>
+            </div>
+          </li>
+
+          <li class="mega-item">
+            <a href="#">Infantil & Juveniles</a>
+            <div class="mega-dropdown">
+              <a data-filter="infantil">Camas infantiles</a>
+              <a data-filter="osito">Modelos especiales</a>
+            </div>
+          </li>
+
+          <li class="mega-item">
+            <a href="#">Ofertas</a>
+            <div class="mega-dropdown">
+              <a data-filter="ofertas">Ver ofertas</a>
+            </div>
+          </li>
+
+          <li class="mega-item">
+            <a data-filter="">Todos</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- BOTÓN HAMBURGUESA -->
+      <button class="hamburger" id="hamburger">☰</button>
+
+      <!-- MENÚ MÓVIL -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-item" data-mobile="camas">
+          <span>Camas & Respaldos</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-camas">
+          <a data-filter="camas">Camas</a>
+          <a data-filter="respaldo">Respaldos</a>
+          <a data-filter="tapizados">Tapizados</a>
+        </div>
+
+        <div class="mobile-item" data-mobile="sillas">
+          <span>Sillas & Sillones</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-sillas">
+          <a data-filter="sillas">Sillas</a>
+          <a data-filter="sillones">Sillones</a>
+          <a data-filter="poltronas">Poltronas</a>
+        </div>
+
+        <div class="mobile-item" data-mobile="banquetas">
+          <span>Banquetas & Puff</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-banquetas">
+          <a data-filter="banquetas">Banquetas</a>
+          <a data-filter="puff">Puff</a>
+        </div>
+
+        <div class="mobile-item" data-mobile="spa">
+          <span>Lashista & Spa</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-spa">
+          <a data-filter="lashista">Sillones Lashista</a>
+          <a data-filter="mostradores">Mostradores</a>
+        </div>
+
+        <div class="mobile-item" data-mobile="infantil">
+          <span>Infantil & Juveniles</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-infantil">
+          <a data-filter="infantil">Camas infantiles</a>
+          <a data-filter="juvenil">Modelos especiales</a>
+        </div>
+
+        <div class="mobile-item" data-mobile="ofertas">
+          <span>Ofertas</span> ▾
+        </div>
+        <div class="mobile-submenu" id="sub-ofertas">
+          <a data-filter="ofertas">Ver Ofertas</a>
+        </div>
+        <div class="mobile-item">
+          <a data-filter="">Ver todos</a>
+        </div>
       </div>
     </header>
 
@@ -74,6 +190,7 @@
           <!-- CARD 1 -->
           <article
             class="product-card"
+            data-category="camas"
             data-id="cama-redonda-imperial"
             data-name="Cama Redonda Imperial Velvet Black Edition"
             data-price="800000"
@@ -119,6 +236,7 @@
           <!-- CARD 2 -->
           <article
             class="product-card"
+            data-category="sillones"
             data-id="sillon-beige"
             data-name="Sillon tres cuerpos"
             data-price="350000"
@@ -158,6 +276,7 @@
           <!-- CARD 3 -->
           <article
             class="product-card"
+            data-category="ofertas"
             data-id="sillon-poltronas"
             data-name="Combo sillón + poltronas"
             data-price="530000"
@@ -197,6 +316,7 @@
           <!-- CARD 4 -->
           <article
             class="product-card"
+            data-category="infantil"
             data-id="cama-osito"
             data-name="Cama Osito"
             data-price="450000"
@@ -236,6 +356,7 @@
           <!-- CARD 5 -->
           <article
             class="product-card hidden-product"
+            data-category="respaldo"
             data-id="respaldo-capitone-blanco"
             data-name="Respaldo capitoné blanco"
             data-price="100000"
@@ -275,6 +396,7 @@
           <!-- CARD 6 -->
           <article
             class="product-card hidden-product"
+            data-category="banquetas"
             data-id="banqueta-corazon"
             data-name="Banqueta corazón"
             data-price="130000"
@@ -314,6 +436,7 @@
           <!-- CARD 7-->
           <article
             class="product-card hidden-product"
+            data-category="sillas"
             data-id="silla-comedor-premium"
             data-name="Silla de comedor premium"
             data-price="78000"
@@ -353,6 +476,7 @@
           <!-- CARD 8-->
           <article
             class="product-card hidden-product"
+            data-category="poltronas"
             data-id="poltronas-capri"
             data-name="Poltronas Capri"
             data-price="65000"
@@ -388,6 +512,7 @@
           <!-- CARD 9-->
           <article
             class="product-card hidden-product"
+            data-category="ofertas"
             data-id="combo-mostrador-banqueta"
             data-name="Combo mostrador + banqueta"
             data-price="400000"
@@ -427,6 +552,7 @@
           <!--CARD 10-->
           <article
             class="product-card hidden-product"
+            data-category="camas"
             data-id="cama-elegance-panel-gris"
             data-name="Cama elegance panel gris"
             data-price="380000"
@@ -466,6 +592,7 @@
           <!--CARD 11-->
           <article
             class="product-card hidden-product"
+            data-category="sillones"
             data-id="sillon-relax-azul"
             data-name="Sillón relax azul"
             data-price="230000"
@@ -501,6 +628,7 @@
           <!--CARD 12-->
           <article
             class="product-card hidden-product"
+            data-category="respaldo"
             data-id="respaldo-capitone-turquesa"
             data-name="Respaldo capitoné turquesa"
             data-price="75000"
@@ -536,6 +664,7 @@
           <!--CARD 13-->
           <article
             class="product-card hidden-product"
+            data-category="sillones"
             data-id="sillon-reina-capitoneada"
             data-name="Sillón Reina Capitoneada"
             data-price="200000"
@@ -575,6 +704,7 @@
           <!--CARD 14-->
           <article
             class="product-card hidden-product"
+            data-category="banquetas"
             data-id="banqueta-shell-rosa"
             data-name="Banqueta Shell Rosa"
             data-price="100000"
@@ -614,6 +744,7 @@
           <!--CARD 15-->
           <article
             class="product-card hidden-product"
+            data-category="camas"
             data-id="cama-denver-gris"
             data-name="Cama Denver Gris"
             data-price="270000"
@@ -653,6 +784,7 @@
           <!--CARD 16-->
           <article
             class="product-card hidden-product"
+            data-category="lashista"
             data-id="sillon-lashista-rosa-bebe"
             data-name="Sillón Lashista Rosa bebé"
             data-price="230000"
@@ -692,6 +824,7 @@
           <!--CARD 17-->
           <article
             class="product-card hidden-product"
+            data-category="ofertas"
             data-id="sillo-lashista-mostrador"
             data-name="Sillón Lashista + Mostrador Premium"
             data-price="450000"
@@ -731,6 +864,7 @@
           <!--CARD 18-->
           <article
             class="product-card hidden-product"
+            data-category="sillones"
             data-id="sillon-personalizado-capitone-ocre"
             data-name="Sillón Personalizado Capitoné Ocre"
             data-price="200000"
@@ -770,6 +904,7 @@
           <!--CARD 19-->
           <article
             class="product-card hidden-product"
+            data-category="ofertas"
             data-id="sillas-economicas"
             data-name="Sillas económicas"
             data-price="60000"
@@ -810,6 +945,7 @@
           <!--CARD 20-->
           <article
             class="product-card hidden-product"
+            data-category="poltronas"
             data-id="silla-poltrona-capitone"
             data-name="Silla Poltrona Capitone"
             data-price="85000"
@@ -851,6 +987,7 @@
           <!--CARD 21-->
           <article
             class="product-card hidden-product"
+            data-category="sillas"
             data-id="silla-comedor-premium-azul"
             data-name="Silla Comedor Premium Azul"
             data-price="78000"
@@ -891,6 +1028,7 @@
           <!--CARD 22-->
           <article
             class="product-card hidden-product"
+            data-category="respaldo"
             data-id="respaldo-canelon-negro"
             data-name="Respaldo canelón negro"
             data-price="90000"
@@ -926,6 +1064,7 @@
           <!--CARD 23-->
           <article
             class="product-card hidden-product"
+            data-category="respaldo"
             data-id="respaldo-canelon-gris"
             data-name="Respaldo canelón gris"
             data-price="70000"
@@ -962,6 +1101,7 @@
           <!--CARD 24-->
           <article
             class="product-card hidden-product"
+            data-category="respaldo"
             data-id="respaldo-capitone-fucsia"
             data-name="Respaldo capitoné fucsia"
             data-price="90000"
@@ -1000,6 +1140,10 @@
             </button>
           </article>
         </div>
+        <p id="no-products-msg" class="no-products-msg" style="display: none">
+          No hay productos en esta categoría por el momento.<br />
+          Seguimos trabajando para ofrecer más ideas y soluciones.
+        </p>
         <button id="load-more">Ver más productos</button>
       </section>
 
@@ -1029,9 +1173,10 @@
         </div>
       </section>
 
+      <!-- SOBRE MI -->
       <section class="section about">
         <div class="about-photo">
-          <img src="img/Tincho.png" alt="Martin Zatt" class="about-image" />
+          <img src="img/producto18.png" alt="Martin Zatt" class="about-image" />
         </div>
         <div class="about-text">
           <h2>Sobre Mi</h2>

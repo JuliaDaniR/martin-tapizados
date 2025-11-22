@@ -67,26 +67,26 @@ ul {
 }
 
 /* ===========================
-   LAYOUT GENERAL
+   HEADER – DOBLE BARRA
    =========================== */
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
+/* TOPBAR – Logo + Texto + Iconos */
+.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  backdrop-filter: blur(18px);
+  padding: 0.7rem 1rem;
+
   background: linear-gradient(
     to bottom,
-    rgba(9, 9, 11, 0.85),
-    rgba(9, 9, 11, 0.6)
+    rgba(9, 9, 11, 0.90),
+    rgba(9, 9, 11, 0.70)
   );
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Branding */
 .brand {
   display: flex;
   align-items: center;
@@ -118,10 +118,11 @@ ul {
   margin-top: 2px;
 }
 
+/* Iconos */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.6rem;
 }
 
 .icon-button {
@@ -153,6 +154,233 @@ ul {
   border-radius: 999px;
   padding: 0 6px;
   font-weight: 700;
+}
+
+/* ===========================
+   NAVBAR – Mega Menú
+   =========================== */
+
+.mega-nav {
+  background: rgba(9, 9, 11, 0.78);
+  backdrop-filter: blur(18px);
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mega-menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.mega-item {
+  position: relative;
+}
+
+.mega-item > a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.4rem 0.3rem;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.mega-item > a:hover {
+  color: var(--color-accent);
+}
+
+/* ===========================
+   DROPDOWNS
+   =========================== */
+
+.mega-dropdown {
+  position: absolute;
+  top: 100%;  /* queda más elegante, como “descolgado” */
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(20, 20, 20, 0.92);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  min-width: 170px;
+
+  display: none;
+  flex-direction: column;
+  animation: fadeDown 0.18s ease-out;
+}
+
+.mega-item:hover .mega-dropdown {
+  display: flex;
+}
+
+.mega-dropdown a {
+  padding: 0.55rem 1rem;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.mega-dropdown a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Animación */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 850px) {
+  .mega-nav {
+    display: none; /* Lo convertimos en hamburguesa más luego si querés */
+  }
+}
+
+/* ===========================
+   MENÚ HAMBURGUESA (MÓVIL)
+   =========================== */
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  color: #f5f5f5;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  position: absolute;
+  right: 1rem;
+  top: 4rem;
+  z-index: 999;
+}
+
+.hamburger:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Panel del menú móvil */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 15, 17, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 1.2rem;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  animation: fadeMobile 0.3s ease-out;
+}
+
+/* Items del menú móvil */
+.mobile-item {
+  color: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.mobile-item:hover {
+  color: var(--color-accent);
+}
+
+.mobile-item span {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Submenús dentro del móvil */
+.mobile-submenu {
+  display: none;
+  flex-direction: column;
+  padding-left: 1.3rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.8rem;
+  gap: 0.4rem;
+
+  animation: subSlide 0.25s ease-out;
+}
+
+.mobile-submenu a {
+  color: #cfcfcf;
+  padding: 0.35rem 0;
+  font-size: 1rem;
+  display: block;
+}
+
+.mobile-submenu a:hover {
+  color: var(--color-accent);
+}
+
+/* Animaciones */
+@keyframes fadeMobile {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   BREAKPOINT MÓVIL
+   =========================== */
+
+@media (max-width: 850px) {
+
+  /* Ocultar mega menú */
+  .mega-nav {
+    display: none;
+  }
+
+  /* Mostrar hamburguesa */
+  .hamburger {
+    display: block;
+  }
+
+  /* Ajustar topbar */
+  .topbar {
+    justify-content: space-between;
+    padding-right: 3rem; /* deja espacio para la hamburguesa */
+  }
+
+  /* Acomodar iconos en móvil */
+  .header-actions {
+    margin-left: 0;
+    gap: 0.7rem;
+  }
+}
+.mobile-item span + span {
+  transition: transform 0.2s ease;
+}
+
+.mobile-item span + span.rotated {
+  transform: rotate(180deg);
 }
 
 /* ===========================
@@ -363,6 +591,22 @@ ul {
 
 .hidden-product {
   display: none;
+}
+.no-products-msg {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1.05rem;
+  color: var(--color-text-soft);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  margin-top: 1rem;
+  border: 1px solid #c9a74d;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(6px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 
 /* ===========================
@@ -793,4 +1037,47 @@ ul {
     opacity: 1;
     transform: translateY(0);
   }
+}
+/* ===========================
+   MUESTRARIO DE TELAS
+   =========================== */
+
+.muestrario-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.muestrario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.muestra {
+  background: var(--color-bg-elevated);
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.muestra img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.muestra span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.muestra:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.20);
 }

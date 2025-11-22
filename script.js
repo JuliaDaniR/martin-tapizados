@@ -1,12 +1,10 @@
 // ================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN GENERAL
 // ================================
-
-// Número de WhatsApp (formato internacional sin + ni espacios)
 const WHATSAPP_NUMBER = "5493417420359";
-
-// Selectores base
 const body = document.body;
+
+// Theme + Cart buttons
 const themeToggleBtn = document.getElementById("theme-toggle");
 const cartToggleBtn = document.getElementById("cart-toggle");
 const cartPanel = document.getElementById("cart-panel");
@@ -27,21 +25,18 @@ const finalWhatsAppBtn = document.getElementById("final-whatsapp");
 
 const productosSection = document.getElementById("productos");
 
-// Claves para localStorage
 const CART_KEY = "mzatt_cart";
 const THEME_KEY = "mzatt_theme";
 
 let cart = [];
 
+
 // ================================
 // TEMA (DARK / LIGHT)
 // ================================
-
 function loadTheme() {
   const saved = localStorage.getItem(THEME_KEY);
-  if (saved === "light" || saved === "dark") {
-    body.setAttribute("data-theme", saved);
-  }
+  if (saved) body.setAttribute("data-theme", saved);
   updateThemeToggleIcon();
 }
 
@@ -55,26 +50,17 @@ function toggleTheme() {
 
 function updateThemeToggleIcon() {
   const current = body.getAttribute("data-theme") || "dark";
-  if (current === "dark") {
-    themeToggleBtn.textContent = "🌙";
-  } else {
-    themeToggleBtn.textContent = "☀️";
-  }
+  themeToggleBtn.textContent = current === "dark" ? "🌙" : "☀️";
 }
+
 
 // ================================
 // CARRITO
 // ================================
-
 function loadCart() {
   try {
-    const stored = localStorage.getItem(CART_KEY);
-    if (stored) {
-      cart = JSON.parse(stored);
-    } else {
-      cart = [];
-    }
-  } catch (e) {
+    cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  } catch {
     cart = [];
   }
   renderCart();
@@ -85,29 +71,29 @@ function saveCart() {
 }
 
 function addToCart(product) {
-  const existing = cart.find((item) => item.id === product.id);
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
+  const existing = cart.find((p) => p.id === product.id);
+  if (existing) existing.quantity++;
+  else cart.push({ ...product, quantity: 1 });
+
   saveCart();
   renderCart();
 }
 
-function updateQuantity(productId, delta) {
-  const item = cart.find((p) => p.id === productId);
+function updateQuantity(id, delta) {
+  const item = cart.find((p) => p.id === id);
   if (!item) return;
+
   item.quantity += delta;
   if (item.quantity <= 0) {
-    cart = cart.filter((p) => p.id !== productId);
+    cart = cart.filter((p) => p.id !== id);
   }
+
   saveCart();
   renderCart();
 }
 
-function removeFromCart(productId) {
-  cart = cart.filter((p) => p.id !== productId);
+function removeFromCart(id) {
+  cart = cart.filter((p) => p.id !== id);
   saveCart();
   renderCart();
 }
@@ -119,10 +105,7 @@ function clearCart() {
 }
 
 function calculateTotal() {
-  return cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  return cart.reduce((t, p) => t + p.price * p.quantity, 0);
 }
 
 function renderCart() {
@@ -159,50 +142,39 @@ function renderCart() {
     });
   }
 
-  const total = calculateTotal();
-  cartTotalSpan.textContent = `$${total.toLocaleString("es-AR")}`;
+  cartTotalSpan.textContent = `$${calculateTotal().toLocaleString("es-AR")}`;
 
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
   cartCountSpan.textContent = totalItems;
 }
+
 
 // ================================
 // WHATSAPP
 // ================================
-
-function openWhatsAppWithMessage(message) {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    message
-  )}`;
+function openWhatsAppWithMessage(msg) {
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
 
 function buildCartMessage() {
-  if (cart.length === 0) {
-    return "Hola Martín, quiero hacer una consulta por muebles tapizados.";
-  }
+  if (!cart.length)
+    return "Hola Martín, quiero consultar por muebles tapizados.";
 
-  let message = "Hola Martín, quiero hacer el siguiente pedido:\n\n";
-
-  cart.forEach((item) => {
-    message += `• ${item.name} x ${item.quantity} (c/u $${item.price.toLocaleString(
-      "es-AR"
-    )})\n`;
+  let msg = "Hola Martín, quiero hacer el siguiente pedido:\n\n";
+  cart.forEach((i) => {
+    msg += `• ${i.name} x ${i.quantity} (c/u $${i.price.toLocaleString("es-AR")})\n`;
   });
 
-  message += `\nTotal estimado: $${calculateTotal().toLocaleString(
-    "es-AR"
-  )}\n\n`;
-  message +=
-    "Mis datos:\nNombre: \nLocalidad: \nMedidas aproximadas: \nComentarios: ";
-
-  return message;
+  msg += `\nTotal estimado: $${calculateTotal().toLocaleString("es-AR")}\n\n`;
+  msg += "Datos:\nNombre:\nLocalidad:\nMedidas:\nDetalles: ";
+  return msg;
 }
 
-// ================================
-// PANEL DEL CARRITO
-// ================================
 
+// ================================
+// PANEL CARRITO
+// ================================
 function openCart() {
   cartPanel.classList.add("open");
   cartOverlay.classList.add("visible");
@@ -213,138 +185,181 @@ function closeCart() {
   cartOverlay.classList.remove("visible");
 }
 
+
 // ================================
-// EVENTOS
+// LOAD MORE + FILTRADO
 // ================================
 
+let allProducts = [...document.querySelectorAll(".product-card")];
+let filteredProducts = allProducts;
+let loadIndex = 0;
+const LOAD_CHUNK = 4;
+
+const loadMoreBtn = document.getElementById("load-more");
+
+function renderLoadMore() {
+  let shown = 0;
+
+  for (; loadIndex < filteredProducts.length && shown < LOAD_CHUNK; loadIndex++) {
+    filteredProducts[loadIndex].style.display = "flex";
+    shown++;
+  }
+
+  loadMoreBtn.style.display =
+    loadIndex >= filteredProducts.length ? "none" : "block";
+}
+
+renderLoadMore();
+
+// FILTROS
+document.querySelectorAll("[data-filter]").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    const cat = btn.dataset.filter;
+    loadIndex = 0;
+
+    const msg = document.getElementById("no-products-msg");
+    msg.style.display = "none";
+
+    if (!cat) filteredProducts = allProducts;
+    else filteredProducts = allProducts.filter(p => p.dataset.category === cat);
+
+    // Ocultar todo antes de mostrar los filtrados
+    allProducts.forEach(p => p.style.display = "none");
+
+    // Si no hay productos → mostrar mensaje
+    if (filteredProducts.length === 0) {
+      msg.style.display = "block";
+      loadMoreBtn.style.display = "none";
+      productosSection.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    // Si hay productos → mostrar los primeros
+    renderLoadMore();
+    productosSection.scrollIntoView({ behavior: "smooth" });
+
+    // Cerrar menú móvil si estaba abierto
+    const menu = document.getElementById("mobileMenu");
+    if (menu) menu.style.display = "none";
+  });
+});
+
+loadMoreBtn.addEventListener("click", renderLoadMore);
+
+
+// ================================
+// ZOOM IMAGEN MÓVIL
+// ================================
+document.querySelectorAll(".product-image").forEach((img) => {
+  img.addEventListener("click", () => img.classList.toggle("zoom-mobile"));
+});
+
+
+// ================================
+// MINIATURAS DE IMAGEN
+// ================================
+document.querySelectorAll(".product-card").forEach((card) => {
+  const mainImg = card.querySelector(".main-img");
+  const thumbs = card.querySelectorAll(".thumb");
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      mainImg.src = thumb.src;
+      thumbs.forEach((t) => t.classList.remove("active"));
+      thumb.classList.add("active");
+    });
+  });
+});
+
+
+// ================================
+// MENÚ MOBILE (HAMBURGUESA)
+// ================================
 document.addEventListener("DOMContentLoaded", () => {
   loadTheme();
   loadCart();
 
-  // Toggle tema
-  themeToggleBtn.addEventListener("click", toggleTheme);
+  themeToggleBtn?.addEventListener("click", toggleTheme);
+  cartToggleBtn?.addEventListener("click", openCart);
+  cartCloseBtn?.addEventListener("click", closeCart);
+  cartOverlay?.addEventListener("click", closeCart);
 
-  // Abrir / cerrar carrito
-  cartToggleBtn.addEventListener("click", openCart);
-  cartCloseBtn.addEventListener("click", closeCart);
-  cartOverlay.addEventListener("click", closeCart);
-
-  // Botones de cantidad y eliminar (delegación de eventos)
-  cartItemsList.addEventListener("click", (e) => {
-    const id = e.target.getAttribute("data-id");
+  cartItemsList?.addEventListener("click", (e) => {
+    const id = e.target.dataset.id;
     if (!id) return;
 
-    if (e.target.classList.contains("qty-plus")) {
-      updateQuantity(id, 1);
-    } else if (e.target.classList.contains("qty-minus")) {
-      updateQuantity(id, -1);
-    } else if (e.target.classList.contains("cart-item-remove")) {
-      removeFromCart(id);
-    }
+    if (e.target.classList.contains("qty-plus")) updateQuantity(id, 1);
+    else if (e.target.classList.contains("qty-minus")) updateQuantity(id, -1);
+    else if (e.target.classList.contains("cart-item-remove")) removeFromCart(id);
   });
 
-  // Vaciar carrito
-  cartClearBtn.addEventListener("click", () => {
-    if (cart.length === 0) return;
-    const confirmClear = confirm(
-      "¿Seguro que querés vaciar el carrito completo?"
-    );
-    if (confirmClear) {
-      clearCart();
-    }
+  cartClearBtn?.addEventListener("click", () => {
+    if (!cart.length) return;
+    if (confirm("¿Vaciar carrito?")) clearCart();
   });
 
-  // Enviar carrito por WhatsApp
-  cartSendWhatsAppBtn.addEventListener("click", () => {
-    const message = buildCartMessage();
-    openWhatsAppWithMessage(message);
-  });
+  cartSendWhatsAppBtn?.addEventListener("click", () =>
+    openWhatsAppWithMessage(buildCartMessage())
+  );
 
-  // Botón flotante WhatsApp (mensaje genérico)
-  floatingWhatsAppBtn.addEventListener("click", () => {
-    const msg =
-      "Hola Martín, vengo desde tu página de muebles tapizados y quiero hacer una consulta.";
-    openWhatsAppWithMessage(msg);
-  });
+  floatingWhatsAppBtn?.addEventListener("click", () =>
+    openWhatsAppWithMessage("Hola Martín, quiero consultar por muebles tapizados.")
+  );
 
-  // Hero CTA
-  heroWhatsAppBtn.addEventListener("click", () => {
-    const msg =
-      "Hola Martín, quiero pedir un presupuesto para muebles tapizados a medida.";
-    openWhatsAppWithMessage(msg);
-  });
+  heroWhatsAppBtn?.addEventListener("click", () =>
+    openWhatsAppWithMessage("Hola Martín, quiero pedir un presupuesto.")
+  );
 
-  // Hero "Ver catálogo" -> scroll a sección productos
-  heroSeeProductsBtn.addEventListener("click", () => {
-    productosSection.scrollIntoView({ behavior: "smooth" });
-  });
+  heroSeeProductsBtn?.addEventListener("click", () =>
+    productosSection.scrollIntoView({ behavior: "smooth" })
+  );
 
-  // About CTA
-  aboutWhatsAppBtn.addEventListener("click", () => {
-    const msg =
-      "Hola Martín, quiero contarte una idea de mueble tapizado para que me asesores:";
-    openWhatsAppWithMessage(msg);
-  });
+  aboutWhatsAppBtn?.addEventListener("click", () =>
+    openWhatsAppWithMessage("Hola Martín, tengo una idea para un mueble a medida:")
+  );
 
-  // CTA final -> si hay carrito, manda el carrito; si no, mensaje genérico
-  finalWhatsAppBtn.addEventListener("click", () => {
-    const message =
-      cart.length > 0
-        ? buildCartMessage()
-        : "Hola Martín, quiero hacer un pedido de muebles tapizados.";
-    openWhatsAppWithMessage(message);
-  });
+  finalWhatsAppBtn?.addEventListener("click", () =>
+    openWhatsAppWithMessage(
+      cart.length ? buildCartMessage() : "Hola Martín, quiero hacer un pedido."
+    )
+  );
 
-  // Botones "Agregar al carrito" en productos
-  const productCards = document.querySelectorAll(".product-card");
-  productCards.forEach((card) => {
-    const btn = card.querySelector(".add-to-cart");
-    btn.addEventListener("click", () => {
+  document.querySelectorAll(".add-to-cart").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const card = e.target.closest(".product-card");
       const id = card.dataset.id;
       const name = card.dataset.name;
       const price = Number(card.dataset.price) || 0;
 
       addToCart({ id, name, price });
-      openCart(); // opcional: abre el carrito al agregar
-    });
-  });
-});
-
-document.querySelectorAll('.product-image').forEach(img => {
-  img.addEventListener('click', () => {
-    img.classList.toggle('zoom-mobile');
-  });
-});
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const products = document.querySelectorAll(".hidden-product");
-    let index = 0;
-
-    const loadMoreBtn = document.getElementById("load-more");
-
-    loadMoreBtn.addEventListener("click", () => {
-      for (let i = 0; i < 4; i++) {
-        if (products[index]) {
-          products[index].style.display = "flex";
-          index++;
-        }
-      }
-
-      if (index >= products.length) {
-        loadMoreBtn.style.display = "none";
-      }
+      openCart();
     });
   });
 
-  document.querySelectorAll('.product-card').forEach(card => {
-  const mainImg = card.querySelector('.main-img');
-  const thumbs = card.querySelectorAll('.thumb');
+  // HAMBURGESA
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-  thumbs.forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      mainImg.src = thumb.src;
-      thumbs.forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
+  hamburger?.addEventListener("click", () => {
+    mobileMenu.style.display =
+      mobileMenu.style.display === "flex" ? "none" : "flex";
+  });
+
+  document.querySelectorAll(".mobile-item").forEach((item) => {
+    item.addEventListener("click", () => {
+      const key = item.dataset.mobile;
+      if (!key) return;
+
+      const submenu = document.getElementById(`sub-${key}`);
+      if (!submenu) return;
+
+      document.querySelectorAll(".mobile-submenu").forEach((m) => {
+        if (m !== submenu) m.style.display = "none";
+      });
+
+      submenu.style.display =
+        submenu.style.display === "flex" ? "none" : "flex";
     });
   });
 });
